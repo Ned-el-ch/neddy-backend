@@ -1,6 +1,49 @@
 class PostsController < ApplicationController
-	skip_before_action :authorized
+	skip_before_action :authorized, only: [:index, :create]
 	def index
-		render json: { test: 'test'}, status: :accepted
+		posts = Post.all
+		render json: posts.to_json(include: {
+			categories: {
+				only: [:id]
+			},
+			comments: {
+				only: [:id, :content, :user_id]
+			},
+			post_likes: {
+				only: [:id, :user_id]
+			},
+			post_favorites: {
+				only: [:id, :user_id]
+			}
+		})
 	end
+
+	def create
+		post = Post.new
+		byebug
+		post_params[:categories].each do |category_id|
+			categoryExists = Category.find(category_id)
+			if categoryExists
+				post.categories << categoryExists
+			end
+		end
+		post.content = post_params[:content]
+		post.user = User.find(post_params[:user_id])
+		post.save
+
+		if post.valid?
+			render json: { post: PostSerializer.new(post) }, status: :created
+		else
+			render json: { error: 'failed to create post' }, status: :not_acceptable
+		end
+	end
+
+	private
+
+	def post_params
+
+		params.require(:post).permit(:content, :user_id, categories: [])
+
+	end
+
 end

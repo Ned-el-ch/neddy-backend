@@ -1,2 +1,5 @@
 class PostLikesController < ApplicationController
+	# ACCEPT A POST WITH A POST_ID AND USER_ID,
+	# IF A POST_LIKE EXISTS WITH THOSE DESTROY IT,
+	# IF NOT THEN CREATE IT
 end

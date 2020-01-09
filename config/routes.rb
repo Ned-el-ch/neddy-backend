@@ -14,5 +14,7 @@ Rails.application.routes.draw do
 				get '/profile', to: 'users#profile'
 		end
 	end
-	resources :posts
+	resources :posts, only: [:index]
+		post '/submit_post', to: 'posts#create'
+		# get '/posts', to: 'posts#index'
 end
