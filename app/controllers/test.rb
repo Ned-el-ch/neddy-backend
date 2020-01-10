@@ -1,0 +1,1 @@
+({entityMap:{'0'=>{type:'LINK',mutability:'MUTABLE',data:{url:'http://example.com'}}},blocks:[{key:'5s7g9',text:'Header',type:'header-one',depth:0,inlineStyleRanges:[],entityRanges:[]},{key:'dem5p',text:'someparagraphtext',type:'unstyled',depth:0,inlineStyleRanges:[{offset:0,length:4,style:'ITALIC'}],entityRanges:[{offset:5,length:9,key:0}]}]})
