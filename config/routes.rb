@@ -15,6 +15,6 @@ Rails.application.routes.draw do
 				get "/posts/:username", to: 'users#posts'
 		end
 	end
-	resources :posts, only: [:index]
+	resources :posts, only: [:index, :show]
 		post '/submit_post', to: 'posts#create'
 end

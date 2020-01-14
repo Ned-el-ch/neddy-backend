@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-	skip_before_action :authorized, only: [:index, :create, :with_author]
+	skip_before_action :authorized, only: [:index, :create, :with_author, :show]
 
 	def index
 
@@ -21,6 +21,11 @@ class PostsController < ApplicationController
 				only: [:id, :user_id]
 			}
 		})
+	end
+
+	def show
+		post = Post.find(params[:id])
+		render json: post
 	end
 
 	def create
@@ -60,7 +65,7 @@ class PostsController < ApplicationController
 
 	def post_params
 
-		params.require(:post).permit(:content, :user_id, :username, categories: [])
+		params.require(:post).permit(:id, :content, :user_id, :username, categories: [])
 
 	end
 
