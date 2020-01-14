@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-	skip_before_action :authorized, only: [:index, :create]
+	skip_before_action :authorized, only: [:index, :create, :with_author]
 
 	def index
 
@@ -60,7 +60,7 @@ class PostsController < ApplicationController
 
 	def post_params
 
-		params.require(:post).permit(:content, :user_id, categories: [])
+		params.require(:post).permit(:content, :user_id, :username, categories: [])
 
 	end
 

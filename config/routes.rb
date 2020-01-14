@@ -12,9 +12,9 @@ Rails.application.routes.draw do
 			resources :users, only: [:create]
 				post '/login', to: 'auth#create'
 				get '/profile', to: 'users#profile'
+				get "/posts/:username", to: 'users#posts'
 		end
 	end
 	resources :posts, only: [:index]
 		post '/submit_post', to: 'posts#create'
-		# get '/posts', to: 'posts#index'
 end
