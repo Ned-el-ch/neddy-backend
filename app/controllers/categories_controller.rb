@@ -1,9 +1,11 @@
 class CategoriesController < ApplicationController
 	skip_before_action :authorized, only: [:posts]
 	def posts
-		category = Category.all.find(params[:id])
-
-		if category.valid?
+		# title = params[:title].downcase.capitalize
+		title = params[:title]
+		category = Category.all.find_by(title: params[:title].downcase.capitalize)
+		byebug
+		if category
 			posts = category.posts
 			render json: posts.to_json(include: {
 				user: {
