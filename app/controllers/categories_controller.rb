@@ -1,5 +1,10 @@
 class CategoriesController < ApplicationController
-	skip_before_action :authorized, only: [:posts]
+	skip_before_action :authorized, only: [:posts, :index]
+	def index
+		categories = Category.all
+		render json: categories
+	end
+
 	def posts
 		category = Category.all.find_by(search_term: params[:search_term].downcase)
 		if category

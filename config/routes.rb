@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 		end
 	end
 	get "/category/:search_term", to: 'categories#posts'
+	get "/categories/", to: 'categories#index'
 	resources :posts, only: [:index, :show]
 		post '/submit_post', to: 'posts#create'
 end

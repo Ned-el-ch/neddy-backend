@@ -1,4 +1,4 @@
 class CategorySerializer < ActiveModel::Serializer
-  attributes :id, :title, :search_term
-  has_many :posts
+  attributes :id, :title
+#   has_many :posts
 end

@@ -11,7 +11,22 @@ class Api::V1::UsersController < ApplicationController
 		# byebug
 		user = User.all.find_by(username: params[:username])
 		posts = user.posts
-		render json: posts
+		render json: posts.to_json(include: {
+			user: {
+			},
+			categories: {
+				only: [:id, :title]
+			},
+			comments: {
+				only: [:id, :content, :user_id]
+			},
+			post_likes: {
+				only: [:id, :user_id]
+			},
+			post_favorites: {
+				only: [:id, :user_id]
+			}
+		})
 	end
 
 	def create
