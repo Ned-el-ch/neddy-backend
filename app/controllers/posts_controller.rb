@@ -53,6 +53,7 @@ class PostsController < ApplicationController
 			end
 		end
 		post.content = post_params[:content]
+		post.title = post_params[:title]
 		post.user = User.find(post_params[:user_id])
 		post.save
 
@@ -80,7 +81,7 @@ class PostsController < ApplicationController
 
 	def post_params
 
-		params.require(:post).permit(:id, :content, :user_id, :username, categories: [])
+		params.require(:post).permit(:id, :content, :title, :user_id, :username, categories: [])
 
 	end
 
