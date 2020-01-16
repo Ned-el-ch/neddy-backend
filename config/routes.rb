@@ -1,12 +1,4 @@
 Rails.application.routes.draw do
-	# resources :user_posts
-	# resources :post_categories
-	# resources :categories
-	# resources :comments
-	# resources :post_favorites
-	# resources :post_likes
-	# resources :posts
-	# For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 	namespace :api do
 		namespace :v1 do
 			resources :users, only: [:create]
@@ -15,7 +7,7 @@ Rails.application.routes.draw do
 			get "/posts/:username", to: 'users#posts'
 		end
 	end
-	get "/category/:title", to: 'categories#posts'
+	get "/category/:search_term", to: 'categories#posts'
 	resources :posts, only: [:index, :show]
 		post '/submit_post', to: 'posts#create'
 end

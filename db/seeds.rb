@@ -37,10 +37,10 @@
 
 # end
 
-categories = ["Science", "Engineering", "Programming", "Art", "Lifestyle", "Politics", "Game Development"]
+categories = %w(Science Engineering Programming Art Lifestyle Politics GameDev IndieDev Unity3D Unity2D Javascript Ruby Python Java React Rails HTML CSS UX UI Security SQL)
 
 categories.each do |title|
 
-	Category.create(title: title)
+	Category.create(title: title, search_term: title.downcase)
 
 end
