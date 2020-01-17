@@ -17,7 +17,7 @@ class ApplicationController < ActionController::API
 	def decoded_token
 
 		if auth_header
-
+			# byebug
 			token = auth_header.split(' ')[1]
 
 			begin
