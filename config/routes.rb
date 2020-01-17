@@ -11,4 +11,6 @@ Rails.application.routes.draw do
 	get "/categories/", to: 'categories#index'
 	resources :posts, only: [:index, :show]
 		post '/submit_post', to: 'posts#create'
+		post '/like_post', to: 'posts#like'
+		post '/favorite_post', to: 'posts#favorite'
 end

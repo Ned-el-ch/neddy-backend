@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
-	skip_before_action :authorized, only: [:index, :create, :show]
+	# skip_before_action :authorized, only: [:index, :create, :show]
+	skip_before_action :authorized, only: [:index, :like, :favorite, :show]
 
 	def index
 
@@ -43,6 +44,30 @@ class PostsController < ApplicationController
 		})
 	end
 
+	def like
+		likeExists = PostLike.find_by(user_id: post_params[:user_id], post_id: post_params[:id])
+		if likeExists
+			likeExists.destroy
+			# render json: {message: "like deleted"}
+		else
+			PostLike.create(user_id: post_params[:user_id], post_id: post_params[:id])
+		end
+		post = Post.find(post_params[:id])
+		render json: post.post_likes.to_json(include: {})
+	end
+
+	def favorite
+		favoriteExists = PostFavorite.find_by(user_id: post_params[:user_id], post_id: post_params[:id])
+		if favoriteExists
+			favoriteExists.destroy
+			# render json: {message: "favorite deleted"}
+		else
+			PostFavorite.create(user_id: post_params[:user_id], post_id: post_params[:id])
+		end
+		post = Post.find(post_params[:id])
+		render json: post.post_favorites.to_json(include: {})
+	end
+
 	def create
 		post = Post.new
 		# byebug
@@ -81,7 +106,7 @@ class PostsController < ApplicationController
 
 	def post_params
 
-		params.require(:post).permit(:id, :content, :title, :user_id, :username, categories: [])
+		params.require(:post).permit(:id, :content, :title, :user_id, :username, categories: [], )
 
 	end
 
