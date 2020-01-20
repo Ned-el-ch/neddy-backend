@@ -17,7 +17,10 @@ class CategoriesController < ApplicationController
 					only: [:id, :title]
 				},
 				comments: {
-					only: [:id, :content, :user_id]
+					only: [:id, :content],
+					include: {
+						user: {only: [:username, :name]}
+					}
 				},
 				post_likes: {
 					only: [:id, :user_id]
