@@ -13,4 +13,5 @@ Rails.application.routes.draw do
 		post '/submit_post', to: 'posts#create'
 		post '/like_post', to: 'posts#like'
 		post '/favorite_post', to: 'posts#favorite'
+		post '/comment', to: 'posts#add_comment'
 end

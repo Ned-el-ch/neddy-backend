@@ -1,6 +1,5 @@
 class PostsController < ApplicationController
-	# skip_before_action :authorized, only: [:index, :create, :show]
-	# skip_before_action :authorized, only: [:index, :like, :favorite, :show]
+
 	skip_before_action :authorized, only: [:index, :show]
 
 	def index
@@ -27,14 +26,19 @@ class PostsController < ApplicationController
 
 	def show
 		post = Post.find(params[:id])
+		# post.comments
 		render json: post.to_json(include: {
 			user: {
+				only: [:id, :name, :username, :bio]
 			},
 			categories: {
 				only: [:id, :title]
 			},
 			comments: {
-				only: [:id, :content, :user_id]
+				only: [:id, :content],
+				include: {
+					user: {only: [:username, :name]}
+				}
 			},
 			post_likes: {
 				only: [:id, :user_id]
@@ -67,6 +71,23 @@ class PostsController < ApplicationController
 		end
 		post = Post.find(post_params[:id])
 		render json: post.post_favorites.to_json(include: {})
+	end
+
+	def add_comment
+		comment = Comment.new
+		comment.content = post_params[:content]
+		comment.user = User.find(post_params[:user_id])
+		comment.post = Post.find(post_params[:id])
+		comment.save
+
+		render json: comment.to_json(include: {
+			user: {
+				only: [:id, :name, :username]
+			},
+			post: {
+				only: [:id]
+			}
+		})
 	end
 
 	def create
