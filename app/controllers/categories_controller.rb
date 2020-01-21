@@ -70,7 +70,7 @@ class CategoriesController < ApplicationController
 				relation_exists.destroy
 				render json: {response: false}
 			else
-				render json: {message: "not following in the first place"}
+				render json: {message: "you weren't following in the first place"}
 			end
 		else
 			render json: {message: "either user or category don't exist (trying to unfollow)"}
