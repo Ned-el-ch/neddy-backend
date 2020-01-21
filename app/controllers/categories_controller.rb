@@ -9,32 +9,34 @@ class CategoriesController < ApplicationController
 		category = Category.all.find_by(search_term: params[:search_term].downcase)
 		if category
 			# posts = category.posts
-			render json: category.to_json(include: {
-				posts: {
-					include: {
-						user: {
-						},
-						categories: {
-							only: [:id, :title]
-						},
-						comments: {
-							only: [:id, :content],
-							include: {
-								user: {only: [:username, :name]}
+			render json: category.to_json(
+				include: {
+					posts: {
+						include: {
+							user: {
+							},
+							categories: {
+								only: [:id, :title]
+							},
+							comments: {
+								only: [:id, :content],
+								include: {
+									user: {only: [:username, :name]}
+								}
+							},
+							post_likes: {
+								only: [:id, :user_id]
+							},
+							post_favorites: {
+								only: [:id, :user_id]
 							}
-						},
-						post_likes: {
-							only: [:id, :user_id]
-						},
-						post_favorites: {
-							only: [:id, :user_id]
-						}
+						}, only: []
+					},
+					users: {
+						only: [:id]
 					}
-				},
-				users: {
-					only: [:id]
 				}
-			})
+			)
 		else
 			render json: { error: 'failed to retrieve posts lol' }, status: :not_acceptable
 		end
@@ -47,13 +49,13 @@ class CategoriesController < ApplicationController
 		if user && cat
 			relation_exists = UserCategory.where(user: user, category: category)
 			if relation_exists
-				render {message: "already following"}
+				render json: {message: "already following"}
 			else
 				UserCategory.create(user: user, category: category)
-				render {response: true}
+				render json: {response: true}
 			end
 		else
-			render {message: "either user or category don't exist (trying to follow)"}
+			render json: {message: "either user or category don't exist (trying to follow)"}
 		end
 	end
 
@@ -65,12 +67,12 @@ class CategoriesController < ApplicationController
 			relation_exists = UserCategory.where(user: user, category: category)
 			if relation_exists
 				relation_exists.destroy
-				render {response: false}
+				render json: {response: false}
 			else
-				render {message: "not following in the first place"}
+				render json: {message: "not following in the first place"}
 			end
 		else
-			render {message: "either user or category don't exist (trying to unfollow)"}
+			render json: {message: "either user or category don't exist (trying to unfollow)"}
 		end
 	end
 
