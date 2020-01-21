@@ -39,4 +39,45 @@ class CategoriesController < ApplicationController
 			render json: { error: 'failed to retrieve posts lol' }, status: :not_acceptable
 		end
 	end
+
+	def follow
+		user = User.find(category_params[:user_id])
+		category = Category.find_by(search_term: category_params[:category].downcase)
+
+		if user && cat
+			relation_exists = UserCategory.where(user: user, category: category)
+			if relation_exists
+				render {message: "already following"}
+			else
+				UserCategory.create(user: user, category: category)
+				render {response: true}
+			end
+		else
+			render {message: "either user or category don't exist (trying to follow)"}
+		end
+	end
+
+	def unfollow
+		user = User.find(category_params[:user_id])
+		category = Category.find_by(search_term: category_params[:category].downcase)
+
+		if user && cat
+			relation_exists = UserCategory.where(user: user, category: category)
+			if relation_exists
+				relation_exists.destroy
+				render {response: false}
+			else
+				render {message: "not following in the first place"}
+			end
+		else
+			render {message: "either user or category don't exist (trying to unfollow)"}
+		end
+	end
+
+	private
+
+	def category_params
+		params.require(:category).permit(:category, :user_id)
+	end
+
 end
