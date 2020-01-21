@@ -35,7 +35,7 @@ class RelationshipsController < ApplicationController
 	def create
 		follower = User.find_by(username: relationship_params[:follower_username])
 		followed = User.find_by(username: relationship_params[:followed_username])
-		byebug
+		# byebug
 		if follower && followed
 			relation_exists = Relationship.where(follower_user: follower, followed_user: followed).first
 			if relation_exists
