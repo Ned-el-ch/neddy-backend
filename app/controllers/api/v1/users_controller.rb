@@ -8,28 +8,46 @@ class Api::V1::UsersController < ApplicationController
 	end
 
 	def posts
-		# byebug
 		user = User.all.find_by(username: params[:username])
-		posts = user.posts
-		render json: posts.to_json(include: {
-			user: {
-			},
-			categories: {
-				only: [:id, :title]
-			},
-			comments: {
-				only: [:id, :content],
-				include: {
-					user: {only: [:username, :name]}
+		render json: user.to_json(
+			include: {
+				posts: {
+					include: {
+						user: {
+						},
+						categories: {
+							only: [:id, :title]
+						},
+						comments: {
+							only: [:id, :content],
+							include: {
+								user: {only: [:username, :name]}
+							}
+						},
+						post_likes: {
+							only: [:id, :user_id]
+						},
+						post_favorites: {
+							only: [:id, :user_id]
+						}
+					}
+				},
+				active_relationships: {
+					include: {
+						followed_user: {
+							only: [:id, :username, :name]
+						}
+					}, only: [:id]
+				},
+				passive_relationships: {
+					include: {
+						follower_user: {
+							only: [:id, :username, :name]
+						}
+					}, only: [:id]
 				}
-			},
-			post_likes: {
-				only: [:id, :user_id]
-			},
-			post_favorites: {
-				only: [:id, :user_id]
-			}
-		})
+			}, only: [:username, :name, :bio]
+		)
 	end
 
 	def create

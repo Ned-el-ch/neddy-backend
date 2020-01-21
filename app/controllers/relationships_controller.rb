@@ -35,6 +35,7 @@ class RelationshipsController < ApplicationController
 	def create
 		follower = User.find_by(username: relationship_params[:follower_username])
 		followed = User.find_by(username: relationship_params[:followed_username])
+		byebug
 		if follower && followed
 			relation_exists = Relationship.where(follower_user: follower, followed_user: followed).first
 			if relation_exists
@@ -44,7 +45,7 @@ class RelationshipsController < ApplicationController
 				render json: {message: "user followed successfully"}
 			end
 		else
-			render json: {message: "one of those usernames aint real"}
+			render json: {message: "one of those usernames aint real (trying to follow)"}
 		end
 	end
 
@@ -60,7 +61,7 @@ class RelationshipsController < ApplicationController
 				render json: {message: "you weren't following in the first place"}
 			end
 		else
-			render json: {message: "one of those usernames aint real"}
+			render json: {message: "one of those usernames aint real (trying to unfollow)"}
 		end
 	end
 
