@@ -31,7 +31,7 @@ class CategoriesController < ApplicationController
 							post_favorites: {
 								only: [:id, :user_id]
 							}
-						}, only: []
+						}, only: [:content, :title]
 					},
 					users: {
 						only: [:id]
