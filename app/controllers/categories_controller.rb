@@ -31,7 +31,7 @@ class CategoriesController < ApplicationController
 							post_favorites: {
 								only: [:id, :user_id]
 							}
-						}#, only: [:content, :title, :created_at]
+						}
 					},
 					users: {
 						only: [:id]
@@ -46,9 +46,9 @@ class CategoriesController < ApplicationController
 	def follow
 		user = User.find(category_params[:user_id])
 		category = Category.find_by(search_term: category_params[:title].downcase)
-
+		# byebug
 		if user && category
-			relation_exists = UserCategory.where(user: user, category: category)
+			relation_exists = UserCategory.where(user: user, category: category).first
 			if relation_exists
 				render json: {message: "already following"}
 			else
@@ -65,7 +65,7 @@ class CategoriesController < ApplicationController
 		category = Category.find_by(search_term: category_params[:title].downcase)
 
 		if user && category
-			relation_exists = UserCategory.where(user: user, category: category)
+			relation_exists = UserCategory.where(user: user, category: category).first
 			if relation_exists
 				relation_exists.destroy
 				render json: {response: false}
