@@ -42,7 +42,7 @@ class RelationshipsController < ApplicationController
 				render json: {message: "already following"}
 			else
 				Relationship.create(follower_user: follower, followed_user: followed)
-				render json: {message: "user followed successfully"}
+				render json: {response: true}
 			end
 		else
 			render json: {message: "one of those usernames aint real (trying to follow)"}
@@ -56,7 +56,7 @@ class RelationshipsController < ApplicationController
 			relation_exists = Relationship.where(follower_user: follower, followed_user: followed).first
 			if relation_exists
 				relation_exists.destroy
-				render json: {message: "user unfollowed successfully"}
+				render json: {response: false}
 			else
 				render json: {message: "you weren't following in the first place"}
 			end
