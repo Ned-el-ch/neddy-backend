@@ -14,6 +14,7 @@ class CategoriesController < ApplicationController
 					posts: {
 						include: {
 							user: {
+								only: [:username, :name, :bio]
 							},
 							categories: {
 								only: [:id, :title]
