@@ -42,7 +42,7 @@ class Api::V1::UsersController < ApplicationController
 				passive_relationships: {
 					include: {
 						follower_user: {
-							only: [:id, :username, :name]
+							only: [:username, :name]
 						}
 					}, only: []
 				}
