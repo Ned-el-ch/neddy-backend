@@ -64,7 +64,7 @@ class CategoriesController < ApplicationController
 		user = User.find(category_params[:user_id])
 		category = Category.find_by(search_term: category_params[:category].downcase)
 
-		if user && cat
+		if user && category
 			relation_exists = UserCategory.where(user: user, category: category)
 			if relation_exists
 				relation_exists.destroy
