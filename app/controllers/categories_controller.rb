@@ -45,7 +45,7 @@ class CategoriesController < ApplicationController
 
 	def follow
 		user = User.find(category_params[:user_id])
-		category = Category.find_by(search_term: category_params[:category].downcase)
+		category = Category.find_by(search_term: category_params[:title].downcase)
 
 		if user && category
 			relation_exists = UserCategory.where(user: user, category: category)
@@ -62,7 +62,7 @@ class CategoriesController < ApplicationController
 
 	def unfollow
 		user = User.find(category_params[:user_id])
-		category = Category.find_by(search_term: category_params[:category].downcase)
+		category = Category.find_by(search_term: category_params[:title].downcase)
 
 		if user && category
 			relation_exists = UserCategory.where(user: user, category: category)
@@ -80,7 +80,7 @@ class CategoriesController < ApplicationController
 	private
 
 	def category_params
-		params.require(:category).permit(:category, :user_id)
+		params.require(:category).permit(:title, :user_id)
 	end
 
 end
