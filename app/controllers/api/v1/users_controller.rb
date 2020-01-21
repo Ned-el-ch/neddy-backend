@@ -35,16 +35,16 @@ class Api::V1::UsersController < ApplicationController
 				active_relationships: {
 					include: {
 						followed_user: {
-							only: [:id, :username, :name]
+							only: [:username, :name]
 						}
-					}, only: [:id]
+					}, only: []
 				},
 				passive_relationships: {
 					include: {
 						follower_user: {
 							only: [:id, :username, :name]
 						}
-					}, only: [:id]
+					}, only: []
 				}
 			}, only: [:username, :name, :bio]
 		)
