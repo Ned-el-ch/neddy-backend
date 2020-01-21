@@ -45,6 +45,9 @@ class Api::V1::UsersController < ApplicationController
 							only: [:username, :name]
 						}
 					}, only: []
+				},
+				categories: {
+					only: [:id, :title]
 				}
 			}, only: [:username, :name, :bio]
 		)

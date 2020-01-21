@@ -3,4 +3,5 @@ class UserSerializer < ActiveModel::Serializer
   has_many :posts
   has_many :passive_relationships
   has_many :active_relationships
+  has_many :categories
 end

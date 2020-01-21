@@ -1,6 +1,8 @@
 class User < ApplicationRecord
 	has_secure_password
 	validates :username, uniqueness: { case_sensitive: false }
+	has_many :user_categories
+	has_many :categories, through: :user_categories
 	has_many :posts
 	has_many :comments
 	has_many :post_likes
