@@ -9,6 +9,10 @@ Rails.application.routes.draw do
 	end
 	get "/category/:search_term", to: 'categories#posts'
 	get "/categories/", to: 'categories#index'
+	get "/followers/:username", to: 'relationships#followers'
+	get "/followed/:username", to: 'relationships#followed'
+	post "/follow", to: 'relationships#create'
+	post "/unfollow", to: 'relationships#destroy'
 	resources :posts, only: [:index, :show]
 		post '/submit_post', to: 'posts#create'
 		post '/like_post', to: 'posts#like'
