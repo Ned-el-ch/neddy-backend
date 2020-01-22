@@ -28,10 +28,10 @@ class Api::V1::UsersController < ApplicationController
 							posts: {
 								only: [:title]
 							}
-						}
+						}, only: [:id, :name]
 					}
 				}
-			}
+			}, only: [:id]
 		})
 	end
 
