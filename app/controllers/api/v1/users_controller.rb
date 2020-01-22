@@ -18,7 +18,26 @@ class Api::V1::UsersController < ApplicationController
 				categories: {
 					include: {
 						posts: {
-							only: [:id, :title]
+							include: {
+								user: {
+									only: [:id, :name, :username, :bio]
+								},
+								categories: {
+									only: [:id, :title]
+								},
+								comments: {
+									only: [:id, :content],
+									include: {
+										user: {only: [:username, :name]}
+									}
+								},
+								post_likes: {
+									only: [:id, :user_id]
+								},
+								post_favorites: {
+									only: [:id, :user_id]
+								}
+							}
 						}
 					},
 					only: [:id]
@@ -28,7 +47,26 @@ class Api::V1::UsersController < ApplicationController
 						followed_user: {
 							include: {
 								posts: {
-									only: [:id, :title]
+									include: {
+										user: {
+											only: [:id, :name, :username, :bio]
+										},
+										categories: {
+											only: [:id, :title]
+										},
+										comments: {
+											only: [:id, :content],
+											include: {
+												user: {only: [:username, :name]}
+											}
+										},
+										post_likes: {
+											only: [:id, :user_id]
+										},
+										post_favorites: {
+											only: [:id, :user_id]
+										}
+									}
 								}
 							},
 							only: [:id]
