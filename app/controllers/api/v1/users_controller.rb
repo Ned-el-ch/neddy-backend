@@ -13,26 +13,32 @@ class Api::V1::UsersController < ApplicationController
 		# posts_from_categories = current_user.categories.map{|category| category.posts}
 		# end
 		# byebug
-		render json: current_user.to_json(include: {
-			categories: {
-				include: {
-					posts: {
-						only: [:title]
-					}
-				}, only: [:id, :title]
-			},
-			active_relationships: {
-				include: {
-					followed_user: {
-						include: {
-							posts: {
-								only: [:title]
-							}
-						}, only: [:id, :name]
+		render json: current_user.to_json(
+			include: {
+				categories: {
+					include: {
+						posts: {
+							only: [:title]
+						}
+					},
+					only: [:id, :title]
+				},
+
+				active_relationships: {
+					include: {
+						followed_user: {
+							include: {
+								posts: {
+									only: [:title]
+								}
+							},
+							only: [:id, :name]
+						}
 					}
 				}
-			}, only: [:id]
-		})
+			},
+			only: [:id]
+		)
 	end
 
 	def posts
