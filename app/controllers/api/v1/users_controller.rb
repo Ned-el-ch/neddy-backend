@@ -24,9 +24,11 @@ class Api::V1::UsersController < ApplicationController
 			active_relationships: {
 				include: {
 					followed_user: {
-						only: [posts: {
-							only: [:title]
-						}]
+						include: {
+							posts: {
+								only: [:title]
+							}
+						}
 					}
 				}
 			}
