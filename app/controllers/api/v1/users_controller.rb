@@ -15,11 +15,18 @@ class Api::V1::UsersController < ApplicationController
 		# byebug
 		render json: current_user.to_json(include: {
 			categories: {
+				include: {
+					posts: {
+						only: [:title]
+					}
+				}, only: [:id, :title]
 			},
 			active_relationships: {
 				include: {
 					followed_user: {
-						only: [:posts]
+						only: [posts: {
+							only: [:title]
+						}]
 					}
 				}
 			}
