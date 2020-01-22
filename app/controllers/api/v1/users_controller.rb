@@ -18,23 +18,23 @@ class Api::V1::UsersController < ApplicationController
 				categories: {
 					include: {
 						posts: {
-							only: [:title]
+							only: [:id, :title]
 						}
 					},
-					only: [:id, :title]
+					only: [:id]
 				},
-
 				active_relationships: {
 					include: {
 						followed_user: {
 							include: {
 								posts: {
-									only: [:title]
+									only: [:id, :title]
 								}
 							},
-							only: [:id, :name]
+							only: [:id]
 						}
-					}
+					},
+					only: [:id]
 				}
 			},
 			only: [:id]
