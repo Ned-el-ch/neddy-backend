@@ -8,6 +8,21 @@ class Api::V1::UsersController < ApplicationController
 
 	end
 
+	def feed
+		# byebug
+		# posts_from_categories = current_user.categories.map{|category| category.posts}
+		# end
+		# byebug
+		render json: current_user.to_json(include: {
+			categories: {
+				only: [:posts]
+			},
+			active_relationships: {
+				only: [:posts]
+			}
+		})
+	end
+
 	def posts
 		user = User.all.find_by(username: params[:username])
 		render json: user.to_json(
