@@ -80,7 +80,7 @@ class Api::V1::UsersController < ApplicationController
 	end
 
 	def posts
-		user = User.all.find_by(username: params[:username])
+		user = User.all.find_by(username: user_params[:username])
 		render json: user.to_json(
 			include: {
 				posts: {

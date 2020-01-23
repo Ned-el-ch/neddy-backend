@@ -5,7 +5,8 @@ Rails.application.routes.draw do
 			resources :users, only: [:create]
 			post '/login', to: 'auth#create'
 			get '/profile', to: 'users#profile'
-			get "/posts/:username", to: 'users#posts'
+			post "/posts", to: 'users#posts'
+			# get "/posts/:username", to: 'users#posts'
 			get "/feed", to: 'users#feed'
 		end
 	end
