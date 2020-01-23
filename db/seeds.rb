@@ -37,7 +37,7 @@
 
 # end
 
-categories = %w(Science Engineering Programming Art Lifestyle Politics GameDev IndieDev Unity3D Unity2D Javascript Ruby Python Java React Rails HTML CSS UX UI Security SQL Backend Frontend)
+categories = %w(Science Engineering Programming Art Lifestyle Politics GameDev IndieDev Unity3D Unity2D JavaScript Ruby Python Java React Rails HTML CSS UX UI Security SQL Backend Frontend)
 
 categories.each do |title|
 
